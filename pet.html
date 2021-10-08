@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <style>
+    .tit{width: 100%;
+    text-align: center;}
+    #app {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .mylist {
+      width: 50%;
+      list-style: none;
+    }
+
+    .myItem {
+      border: 1px solid #a0a0a0;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .num {
+      width: 15%;
+      text-align: center;
+      font-size: 30px;
+    }
+
+    .content {
+      width: 85%;
+      border-left: 1px solid #a0a0a0;
+      padding-left: 20px;
+    }
+  </style>
+  <div id="app">
+    <h1 class="tit">台中市合法特定寵物業名單</h1>
+    <ul class="mylist">
+      <li v-for="(item,index) in taichungPetStore" class="myItem">
+        <p class="num">{{index+1}}</p>
+        <span class="content">
+          <p>名稱：{{item.legalname}}</p>
+          <p>項目：{{item.busitem}}</p>
+          <p>地址：{{item.legaladdress}}</p>
+        </span>
+      </li>
+    </ul>
+  </div>
+<!-- 資料來源：https://data.gov.tw/dataset/97070 -->
+
+
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          taichungPetStore: []
+        }
+      },
+      created() {
+        const vm = this;
+        axios
+          .get('https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=fNT9RMo8PQRO')
+          .then((response) => {
+            let _data = response.data
+            let arr = _data.filter(item => item.legaladdress.includes('臺中市'))
+            console.log(arr);
+            vm.taichungPetStore = arr;
+          });
+      },
+    })
+  </script>
+
+
+</body>
+
+</html>
