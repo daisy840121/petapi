@@ -7,11 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
   <title>Document</title>
 </head>
-
 <body>
-  <style>
+<style>
      .tit{width: 100%;
     text-align: center;}
     #app {
@@ -61,11 +62,40 @@
       width: 100%;
     }
     }
+    .input-wrap{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0px;
+    }
+    .input-group{
+      width: 300px;
+    }
+    .form-control:focus{
+        outline:0 transparent;
+        box-shadow: none;
+        border: 1px solid #707070;
+    }
+    .input-group-text{
+      cursor:pointer;
+    }  
   </style>
   <div id="app">
     <h1 class="tit">台中市合法特定寵物業名單</h1>
-    <ul class="mylist">
-      <li v-for="(item,index) in taichungPetStore" class="myItem">
+    <div class="input-wrap">
+      <div class="input-group">
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="搜尋台中區域關鍵字..." v-model="input" @change="">
+        <span class="input-group-text" id="inputGroup-sizing-sm" @click="handelsearch">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+        </svg>
+      </span>
+      </div>
+    </div>
+
+    <ul class="mylist" v-if="isshow"> 
+      <li v-for="(item,index) in taichungPetStore" class="myItem"> 
         <p class="num">{{index+1}}</p>
         <span class="content">
           <p>名稱：{{item.legalname}}</p>
@@ -74,16 +104,32 @@
         </span>
       </li>
     </ul>
-  </div>
+
+    <ul class="mylist" v-if="issearchshow"> 
+      <li v-for="(item,index) in searcharr" class="myItem"> 
+        <p class="num">{{index+1}}</p>
+        <span class="content">
+          <p>名稱：{{item.legalname}}</p>
+          <p>項目：{{item.busitem}}</p>
+          <p>地址：{{item.legaladdress}}</p>
+        </span>
+      </li>
+    </ul>
+
+  </div> 
 <!-- 資料來源：https://data.gov.tw/dataset/97070 -->
 
-
+ 
   <script>
     new Vue({
       el: '#app',
       data() {
         return {
-          taichungPetStore: []
+          isshow:true,
+          issearchshow : false,
+          input:"",
+          taichungPetStore: [],
+          searcharr:[]
         }
       },
       created() {
@@ -93,12 +139,25 @@
           .then((response) => {
             let _data = response.data
             let arr = _data.filter(item => item.legaladdress.includes('臺中市'))
-            console.log(arr);
+            // console.log(arr);
             vm.taichungPetStore = arr;
           });
       },
+      methods: {
+      handelsearch() {
+      this.isshow = false;
+      let inputtxt = this.input;
+      let list = this.taichungPetStore;
+
+      this.searcharr = list.filter(function (item) {
+        return item.legaladdress.includes(inputtxt);
+      });
+      this.issearchshow = true;
+    },
+      },
+
     })
-  </script>
+  </script> 
 
 </body>
 
