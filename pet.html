@@ -12,109 +12,592 @@
   <title>Document</title>
 </head>
 <body>
-<style>
-     .tit{width: 100%;
-    text-align: center;}
-    #app {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .mylist {
-      list-style: none;
-    }
-    .myItem {
-      border: 1px solid #a0a0a0;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .num {
-      width: 15%;
-      text-align: center;
-      font-size: 30px;
-    }
 
-    .content {
-      width: 85%;
-      border-left: 1px solid #a0a0a0;
-      padding-left: 20px;
+  <style>
+    h3{
+      margin-top: 50px;
     }
-    @media (min-width:480px){
-    .mylist {
-      width: 50%;
-    }
-    }
+input{
+  width: 35%;
+}
+.tableItem{
+  width: 100%;
+}
+.num{
+  width: 5%;
+}
+.name{
+  width: 30%;
+}
 
-    @media (max-width:480px){
-      .tit{
-        font-size:20px;
-      }
-      ul{
-        padding: 0;
-      }
-      li{
-        margin-bottom: 10px;
-      }
-      .mylist {
-      width: 100%;
-    }
-    }
-    .input-wrap{
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 20px 0px;
-    }
-    .input-group{
-      width: 300px;
-    }
-    .form-control:focus{
-        outline:0 transparent;
-        box-shadow: none;
-        border: 1px solid #707070;
-    }
-    .input-group-text{
-      cursor:pointer;
-    }  
+.busitem{
+  width: 10%;
+}
+.add{
+  width: 45%;
+}
+.chack{
+  width: 10%;
+}
+
   </style>
   <div id="app">
     <h1 class="tit">台中市合法特定寵物業名單</h1>
-    <div class="input-wrap">
-      <div class="input-group">
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="搜尋台中區域關鍵字..." v-model="input" @change="">
-        <span class="input-group-text" id="inputGroup-sizing-sm" @click="handelsearch">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-        </svg>
-      </span>
-      </div>
-    </div>
 
-    <ul class="mylist" v-if="isshow"> 
-      <li v-for="(item,index) in taichungPetStore" class="myItem"> 
-        <p class="num">{{index+1}}</p>
-        <span class="content">
-          <p>名稱：{{item.legalname}}</p>
-          <p>項目：{{item.busitem}}</p>
-          <p>地址：{{item.legaladdress}}</p>
-        </span>
-      </li>
-    </ul>
+<h3>中區共{{Central.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Central">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+<span>
+<h3>北屯區共{{Beitun.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Beitun">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
 
-    <ul class="mylist" v-if="issearchshow"> 
-      <li v-for="(item,index) in searcharr" class="myItem"> 
-        <p class="num">{{index+1}}</p>
-        <span class="content">
-          <p>名稱：{{item.legalname}}</p>
-          <p>項目：{{item.busitem}}</p>
-          <p>地址：{{item.legaladdress}}</p>
-        </span>
-      </li>
-    </ul>
+
+<h3>北區共{{North.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in North">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>西屯區共{{Situn.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Situn">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>西區共{{West.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in West">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3>東區共{{East.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in East">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>南屯區共{{Nantun.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Nantun">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3>南區共{{South.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in South">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3>大甲區共{{Daji.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Daji">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>大肚區共{{Dadu.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Dadu">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3>大里區共{{Dali.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Dali">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>大雅區共{{Daya.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Daya">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+<h3>太平區共{{Taiping.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Taiping">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+<h3>外埔區共{{Waipu.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Waipu">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>神岡區共{{Shengang.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Shengang">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3>石崗區共{{Shigang.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Shigang">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>后里區共{{Houli.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Houli">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>東勢區共{{Dongshih.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Dongshih">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>烏日區共{{Wurih.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Wurih">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+ <h3>梧棲區共{{Wuqi.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Wuqi">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>清水區共{{Cingshuei.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Cingshuei">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>新社區共{{Sinshe.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Sinshe">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+ <h3>罈子區共{{Tanzi.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Tanzi">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>霧峰區共{{Wufong.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Wufong">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
+
+ <h3>豐原區共{{Fongyuan.length}}筆</h3>
+<table class="table">
+  <thead>
+    <tr class="tableItem">
+      <th class="num">#</th>
+      <th class="name">店家名稱</th>
+      <th class="busitem">項目</th>
+      <th class="add">地址</th>
+      <th class="chack">勾選</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(item,index) in Fongyuan">
+      <th>{{index+1}}</th>
+      <td>{{item.legalname}}</td>
+      <td>{{item.busitem}}</td>
+      <td>{{item.legaladdress}}</td>
+      <td><input type="text"></td>
+    </tr>
+  </tbody>
+</table>
+
 
   </div> 
 <!-- 資料來源：https://data.gov.tw/dataset/97070 -->
@@ -125,37 +608,98 @@
       el: '#app',
       data() {
         return {
-          isshow:true,
-          issearchshow : false,
-          input:"",
-          taichungPetStore: [],
-          searcharr:[]
+          Central:[],
+          Beitun:[],
+          North:[],
+          Situn:[],
+          West:[],
+          East:[],
+          Nantun:[],
+          South:[],
+          Daji:[],
+          Dadu:[],
+          Dali:[], 
+          Daya:[], 
+          Taiping:[],
+          Waipu:[],
+          Shengang:[],
+          Shigang:[], 
+          Houli:[], 
+          Dongshih:[],
+          Wurih:[],
+          Wuqi:[],
+          Cingshuei:[],
+          Sinshe:[],
+          Tanzi:[], 
+          Wufong:[],
+          Fongyuan:[]
         }
       },
-      created() {
+        mounted() {
         const vm = this;
         axios
           .get('https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=fNT9RMo8PQRO')
           .then((response) => {
             let _data = response.data
-            let arr = _data.filter(item => item.legaladdress.includes('臺中市'))
-            // console.log(arr);
-            vm.taichungPetStore = arr;
+            let CentralArr = _data.filter(item => item.legaladdress.includes('臺中市中區'))
+            vm.Central = CentralArr;
+            let BeitunArr = _data.filter(item => item.legaladdress.includes('臺中市北屯區'))
+            vm.Beitun = BeitunArr;
+            let NorthArr = _data.filter(item => item.legaladdress.includes('臺中市北區'))
+            vm.North = NorthArr;
+            let SitunArr = _data.filter(item => item.legaladdress.includes('臺中市西屯區'))
+            vm.Situn = SitunArr;
+            let WestArr = _data.filter(item => item.legaladdress.includes('臺中市西區'))
+            vm.West = WestArr;
+            let EastArr = _data.filter(item => item.legaladdress.includes('臺中市東區'))
+            vm.East = EastArr;
+            let NantunArr = _data.filter(item => item.legaladdress.includes('臺中市南屯區'))
+            vm.Nantun = NantunArr;
+            let SouthArr = _data.filter(item => item.legaladdress.includes('臺中市南區'))
+            vm.South = SouthArr;
+            let DajiArr = _data.filter(item => item.legaladdress.includes('臺中市大甲區'))
+            vm.Daji = DajiArr;
+            let DaduArr = _data.filter(item => item.legaladdress.includes('臺中市大肚區'))
+            vm.Dadu  = DaduArr;
+            let DaliArr = _data.filter(item => item.legaladdress.includes('臺中市大里區'))
+            vm.Dali  = DaliArr;
+            let DayaArr = _data.filter(item => item.legaladdress.includes('臺中市大雅區'))
+            vm.Daya  = DayaArr;
+            let TaipingArr = _data.filter(item => item.legaladdress.includes('臺中市太平區'))
+            vm.Taiping  = TaipingArr;
+            let WaipuArr = _data.filter(item => item.legaladdress.includes('臺中市外埔區'))
+            vm.Waipu  = WaipuArr;
+            let ShengangArr = _data.filter(item => item.legaladdress.includes('臺中市神岡區'))
+            vm.Shengang  = ShengangArr;
+            let ShigangArr = _data.filter(item => item.legaladdress.includes('臺中市石岡區'))
+            vm.Shigang  = ShigangArr;
+            let HouliArr = _data.filter(item => item.legaladdress.includes('臺中市后里區'))
+            vm.Houli  = HouliArr;
+            let DongshihArr = _data.filter(item => item.legaladdress.includes('臺中市東勢區'))
+            vm.Dongshih  = DongshihArr;
+            let WurihArr = _data.filter(item => item.legaladdress.includes('臺中市烏日區'))
+            vm.Wurih  = WurihArr;
+            let WuqiArr = _data.filter(item => item.legaladdress.includes('臺中市梧棲區'))
+            vm.Wuqi  = WuqiArr;
+            let CingshueiArr = _data.filter(item => item.legaladdress.includes('臺中市清水區'))
+            vm.Cingshuei = CingshueiArr;
+            let SinsheArr = _data.filter(item => item.legaladdress.includes('臺中市新社區'))
+            vm.Sinshe  = SinsheArr;
+            
+            
+            let TanziArr = _data.filter(item => item.legaladdress.includes('臺中市潭子區'))
+            vm.Tanzi  = TanziArr;
+            
+            let FongyuanArr = _data.filter(item => item.legaladdress.includes('臺中市豐原區'))
+            vm.Fongyuan  = FongyuanArr;
+            let WufongArr = _data.filter(item => item.legaladdress.includes('臺中市霧峰區'))
+            vm.Wufong  = WufongArr;
+
+            
           });
       },
-      methods: {
-      handelsearch() {
-      this.isshow = false;
-      let inputtxt = this.input;
-      let list = this.taichungPetStore;
-
-      this.searcharr = list.filter(function (item) {
-        return item.legaladdress.includes(inputtxt);
-      });
-      this.issearchshow = true;
-    },
-      },
-
+        
+    
     })
   </script> 
 
