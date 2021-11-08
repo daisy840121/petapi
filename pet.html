@@ -50,6 +50,7 @@ input{width: 35%;}
   </style>
   <div id="app">
     <h1 class="tit">台中市合法特定寵物業名單</h1>
+    <p>共{{taicheng.length}}筆</p>
 
 <h3>中區共{{Central.length}}筆</h3>
 <table class="table">
@@ -615,6 +616,7 @@ input{width: 35%;}
       el: '#app',
       data() {
         return {
+          taicheng:[],
           Central:[],
           Beitun:[],
           North:[],
@@ -648,6 +650,8 @@ input{width: 35%;}
           .get('https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=fNT9RMo8PQRO')
           .then((response) => {
             let _data = response.data
+            let taichengArr = _data.filter(item => item.legaladdress.includes('臺中市'))
+            vm.taicheng = taichengArr;
             let CentralArr = _data.filter(item => item.legaladdress.includes('臺中市中區'))
             vm.Central = CentralArr;
             let BeitunArr = _data.filter(item => item.legaladdress.includes('臺中市北屯區'))
